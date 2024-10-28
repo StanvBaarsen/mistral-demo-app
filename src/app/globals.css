@@ -2,13 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--background: #353b4b;
-	--darker-background: #2f333d;
-	--darkest-background: #2a2d33;
+html {
+	--background: #1a1a1a;
+	--darker-background: #121212;
+	--darkest-background: #0d0d0d;
 	--foreground: #f0f0f0;
-	--accent: #008acc;
+	--accent: #007ab3;
+	--accent-hover: #005c8b;
+	&.light {
+		--background: #f8f8f8;
+		--darker-background: #f0f4ff;
+		--darkest-background: #2a2d33;
+		--foreground: #222;
+		--accent: #578efe;
+		--accent-hover: #4f7ff7;
+		--disabled-btn: #c0c0c0;
+	}	
 }
+
 
 body {
 	color: var(--foreground);
@@ -29,7 +40,6 @@ header {
 	z-index: 1;
 	width: 100%;
 	background: var(--darker-background);
-	color: white;
 
 	h1 {
 		text-align: center;
@@ -57,14 +67,15 @@ button.with-icon {
 
 	i.material-icons {
 		margin-top: 6px;
+		color: white;
 	}
 
 	&:hover {
-		background: #0077cc;
+		background: var(--accent-hover);
 	}
 
 	&:disabled {
-		background: #444d62;
+		background: var(--disabled-btn);
 	}
 }
 
@@ -72,6 +83,5 @@ button.fab {
 	padding: 6px;
 	border-radius: 50%;
 	height: 48px;
-	width: 48px;
-
+	width: 51px;
 }

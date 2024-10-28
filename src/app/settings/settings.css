@@ -1,0 +1,4 @@
+* {
+	/* ensure smooth theme transitions: */
+	transition: background 0.4s, color 0.2s;
+}

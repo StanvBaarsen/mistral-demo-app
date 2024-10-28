@@ -142,7 +142,7 @@ const Messages = memo(function Messages({ messages }: { messages: Message[] }) {
 	return (
 		<>
 			{messages.map((response, index) => (
-				<div key={index} className={`chatMessage ${response.role}`}>
+				<div key={index} className={`chatMessage ${response.role} shadow-md`}>
 					<b>
 						{response.role == 'user' ? 'You' : 'Mistral'}:
 					</b>
