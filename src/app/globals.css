@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #353b4b;
+	--darker-background: #2f333d;
+	--darkest-background: #2a2d33;
+	--foreground: #f0f0f0;
+	--accent: #008acc;
 }
 
 body {
@@ -16,7 +19,7 @@ body {
 	height: 100vh;
 }
 
-#header {
+header {
 	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
@@ -25,7 +28,7 @@ body {
 	top: 0;
 	z-index: 1;
 	width: 100%;
-	background: #333;
+	background: var(--darker-background);
 	color: white;
 
 	h1 {
@@ -43,17 +46,23 @@ body {
 		padding: 12px 12px;
 	}
 	width: 100%;
-	background: #fefefe;
 
 	div.chatMessage {
 		margin: 20px 0;
 		padding: 8px 18px;
-		border-radius: 12px;
+		border-radius: 24px;
 		background: #f0f0f0;
 		width: 60%;
 
 		&.user {
 			margin-left: auto;
+			background: var(--accent);
+			border-top-right-radius: 0px;
+		}
+
+		&:not(.user) {
+			background: #444d62;
+			border-top-left-radius: 0px;
 		}
 
 		ul {
@@ -91,7 +100,7 @@ body {
 	bottom: 0;
 	z-index: 1;
 	width: 100%;
-	background: #333;
+	background: var(--darker-background);
 
 	display: flex;
 	justify-content: center;
@@ -100,6 +109,8 @@ body {
 
 	input {
 		width: calc(100% - 12px - 3rem);
+		border-radius: 4px;
+		background: var(--background);
 	}
 
 	input,
@@ -108,10 +119,35 @@ body {
 		padding: 0 1rem;
 		border: none;
 		border-radius: 4px;
-
+		color: #fafafa;
 
 		&:focus {
 			outline: none;
 		}
 	}
+}
+
+button.with-icon {
+	background: var(--accent);
+	transition: background 0.4s;
+
+	i.material-icons {
+		margin-top: 6px;
+	}
+
+	&:hover {
+		background: #0077cc;
+	}
+
+	&:disabled {
+		background: #444d62;
+	}
+}
+
+button.fab {
+	padding: 6px;
+	border-radius: 50%;
+	height: 48px;
+	width: 48px;
+
 }

@@ -84,17 +84,18 @@ export default function MainPage() {
 
 	useEffect(() => {
 		focusInput();
+
 	}, []);
 
 	return (
 		<>
-			<header id="header">
-				<h1 className="text-2xl font-bold mb-4">
+			<header className="shadow-md">
+				<h1 className="text-2xl font-bold">
 					Stan&#39;s Mistral Demo Web App
 				</h1>
 			</header>
 			<div id="messages">
-				<Messages messages={chatMessages}/>
+				<Messages messages={chatMessages} />
 				{loading &&
 					<div className="chatMessage">
 						<b>
@@ -109,7 +110,7 @@ export default function MainPage() {
 					</div>
 				}
 			</div>
-			<div id="messageBox">
+			<div id="messageBox" className="shadow-md">
 				<input
 					type="text"
 					id="userInput"
@@ -121,9 +122,9 @@ export default function MainPage() {
 				<button
 					disabled={loading}
 					onClick={sendMessage}
-					className="bg-black text-white rounded p-2"
+					className="with-icon"
 				>
-					{loading ? 'Loading...' : 'Send'}
+					<i className="material-icons">send</i>
 				</button>
 			</div>
 		</>
@@ -131,7 +132,7 @@ export default function MainPage() {
 }
 
 
-const Messages = memo(function Messages({ messages }: { messages: Message[]}) {
+const Messages = memo(function Messages({ messages }: { messages: Message[] }) {
 	return (
 		<>
 			{messages.map((response, index) => (
