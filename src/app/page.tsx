@@ -1,6 +1,8 @@
 "use client";
 import React, { memo, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useRouter } from 'next/navigation';
+import './home.css';
 
 type Message = {
 	content: string;
@@ -9,6 +11,7 @@ type Message = {
 }
 
 export default function MainPage() {
+	const router = useRouter();
 	const [userInput, setUserInput] = useState('');
 	const [chatMessages, setChatMessages] = useState<Message[]>([]);
 	const [unfinishedMistralResponse, setUnfinishedMistralResponse] = useState('');
@@ -22,9 +25,7 @@ export default function MainPage() {
 		if (!userInput) return;
 
 		const messagesDiv = document.getElementById('messages');
-		if (messagesDiv) {
-			messagesDiv.scrollTop = messagesDiv.scrollHeight;
-		}
+		if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight
 
 		try {
 			const newMessages = [...chatMessages, {
@@ -65,15 +66,13 @@ export default function MainPage() {
 				role: 'assistant',
 			}]);
 			setUnfinishedMistralResponse('');
-			if (messagesDiv) {
-				messagesDiv.scrollTop = messagesDiv.scrollHeight;
-			}
+			if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight
 			focusInput();
 
 			reader.cancel();
 		} catch (error) {
 			setChatMessages((prev) => [...prev, {
-				content: 'Error: ' + JSON.stringify(error),
+				content: 'Error: ' + String(error),
 				role: 'assistant',
 				isError: true,
 			}]);
@@ -84,7 +83,6 @@ export default function MainPage() {
 
 	useEffect(() => {
 		focusInput();
-
 	}, []);
 
 	return (
@@ -93,9 +91,14 @@ export default function MainPage() {
 				<h1 className="text-2xl font-bold">
 					Stan&#39;s Mistral Demo Web App
 				</h1>
+				<button
+					className="with-icon fab mr-3"
+					onClick={() => router.push('/settings')}
+				>
+					<i className="material-icons">settings</i>
+				</button>
 			</header>
-			<div id="messages">
-				<Messages messages={chatMessages} />
+			<div id="messagesList" className="main-content">
 				{loading &&
 					<div className="chatMessage">
 						<b>
@@ -109,8 +112,10 @@ export default function MainPage() {
 						}
 					</div>
 				}
+				<Messages messages={chatMessages} />
+				<br />
 			</div>
-			<div id="messageBox" className="shadow-md">
+			<div id="inputBox" className="shadow-md">
 				<input
 					type="text"
 					id="userInput"
@@ -133,6 +138,7 @@ export default function MainPage() {
 
 
 const Messages = memo(function Messages({ messages }: { messages: Message[] }) {
+	messages = [...messages].reverse(); // because the messagesList flex is reverse-column, i.e., newest messages at the bottom
 	return (
 		<>
 			{messages.map((response, index) => (

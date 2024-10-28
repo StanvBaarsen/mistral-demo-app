@@ -1,0 +1,86 @@
+#messagesList {
+	display: flex;
+	/* the message box is column reverse so that the scrolling works bottom to top, as a user would expect from a chat app */
+	flex-direction: column-reverse;
+}
+
+
+div.chatMessage {
+	margin: 20px 0;
+	padding: 8px 18px;
+	border-radius: 24px;
+	background: #f0f0f0;
+	width: 60%;
+
+	&.user {
+		margin-left: auto;
+		background: var(--accent);
+		border-top-right-radius: 0px;
+	}
+
+	&:not(.user) {
+		background: #444d62;
+		border-top-left-radius: 0px;
+	}
+
+	ul {
+		list-style-type: disc;
+		margin-left: 24px;
+	}
+
+	ol {
+		list-style-type: decimal;
+		margin-left: 24px;
+	}
+
+	h3 {
+		font-weight: bold;
+		font-size: 1.25rem;
+		margin-top: 12px;
+		margin-bottom: 4px;
+	}
+
+	pre {
+		padding-left: 32px;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		margin: 8px 0;
+		background: rgba(0, 0, 0, 0.075);
+		border-radius: 8px;
+		overflow-x: auto;
+	}
+}
+
+
+#inputBox {
+	padding: 1.8rem;
+	position: sticky;
+	bottom: 0;
+	z-index: 1;
+	width: 100%;
+	background: var(--darker-background);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+
+	input {
+		width: calc(100% - 12px - 3rem);
+		border-radius: 4px;
+		background: var(--background);
+	}
+
+	input,
+	button {
+		height: 3rem;
+		padding: 0 1rem;
+		border: none;
+		border-radius: 4px;
+		color: #fafafa;
+
+		&:focus {
+			outline: none;
+		}
+	}
+}
