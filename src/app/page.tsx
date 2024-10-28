@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 type Message = {
@@ -58,7 +58,7 @@ export default function MainPage() {
 				message += decoder.decode(value, { stream: true });
 				setUnfinishedMistralResponse(message);
 			}
-			
+
 			setLoading(false);
 			setChatMessages((prev) => [...prev, {
 				content: message,
@@ -69,7 +69,7 @@ export default function MainPage() {
 				messagesDiv.scrollTop = messagesDiv.scrollHeight;
 			}
 			focusInput();
-			
+
 			reader.cancel();
 		} catch (error) {
 			setChatMessages((prev) => [...prev, {
@@ -94,16 +94,7 @@ export default function MainPage() {
 				</h1>
 			</header>
 			<div id="messages">
-				{chatMessages.map((response, index) => (
-					<div key={index} className={`chatMessage ${response.role}`}>
-						<b>
-							{response.role == 'user' ? 'You' : 'Mistral'}:
-						</b>
-						<span className={response.isError ? "text-red-500" : ""}>
-							<ReactMarkdown>{response.content}</ReactMarkdown>
-						</span>
-					</div>
-				))}
+				<Messages messages={chatMessages}/>
 				{loading &&
 					<div className="chatMessage">
 						<b>
@@ -138,3 +129,21 @@ export default function MainPage() {
 		</>
 	);
 }
+
+
+const Messages = memo(function Messages({ messages }: { messages: Message[]}) {
+	return (
+		<>
+			{messages.map((response, index) => (
+				<div key={index} className={`chatMessage ${response.role}`}>
+					<b>
+						{response.role == 'user' ? 'You' : 'Mistral'}:
+					</b>
+					<span className={response.isError ? "text-red-500" : ""}>
+						<ReactMarkdown>{response.content}</ReactMarkdown>
+					</span>
+				</div>
+			))}
+		</>
+	);
+});
