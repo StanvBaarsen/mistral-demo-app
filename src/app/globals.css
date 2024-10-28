@@ -61,6 +61,11 @@ body {
 			margin-left: 24px;
 		}
 
+		ol {
+			list-style-type: decimal;
+			margin-left: 24px;
+		}
+
 		h3 {
 			font-weight: bold;
 			font-size: 1.25rem;
