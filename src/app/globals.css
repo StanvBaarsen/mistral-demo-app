@@ -7,13 +7,6 @@
 	--foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
-}
-
 body {
 	color: var(--foreground);
 	background: var(--background);
@@ -46,6 +39,9 @@ body {
 	flex: 1;
 	overflow-y: auto;
 	padding: 12px 64px;
+	@media screen and (max-width: 600px) {
+		padding: 12px 12px;
+	}
 	width: 100%;
 	background: #fefefe;
 
@@ -59,6 +55,28 @@ body {
 		&.user {
 			margin-left: auto;
 		}
+
+		ul {
+			list-style-type: disc;
+			margin-left: 24px;
+		}
+
+		h3 {
+			font-weight: bold;
+			font-size: 1.25rem;
+			margin-top: 12px;
+			margin-bottom: 4px;
+		}
+
+		pre {
+			padding-left: 32px;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			margin: 8px 0;
+			background: rgba(0, 0, 0, 0.075);
+			border-radius: 8px;
+			overflow-x: auto;
+		}
 	}
 }
 
@@ -69,17 +87,18 @@ body {
 	z-index: 1;
 	width: 100%;
 	background: #333;
-	
+
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
 
 	input {
 		width: calc(100% - 12px - 3rem);
 	}
 
-	input, button {
+	input,
+	button {
 		height: 3rem;
 		padding: 0 1rem;
 		border: none;
