@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Mistral } from '@mistralai/mistralai';
-import { settings } from '@/utils/settings';
 
 const apiKey = process.env.API_KEY;
 const client = new Mistral({ apiKey });

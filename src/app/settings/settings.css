@@ -1,12 +1,12 @@
-* {
+body {
 	/* ensure smooth theme transitions: */
 	transition: background 0.4s, color 0.2s;
 }
 
 #settings-table {
 	td {
-		padding-bottom: 16px;
-		padding-right: 16px;
+		padding: 8px;
+		vertical-align: top;
 	}
 	textarea, input {
 		min-width: 300px;

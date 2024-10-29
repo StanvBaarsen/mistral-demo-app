@@ -119,13 +119,11 @@ export default function MainPage() {
 				<br />
 			</div>
 			<div id="inputBox" className="shadow-md">
-				<input
-					type="text"
-					id="userInput"
+				<textarea
 					value={userInput}
 					onChange={(e) => setUserInput(e.target.value)}
 					placeholder="Ask anything!"
-					onKeyUp={(e) => (e.key === "Enter" && !loading) ? sendMessage() : null}
+					onKeyUp={(e) => (e.key === "Enter" && !e.shiftKey && !loading) ? sendMessage() : null}
 				/>
 				<button
 					disabled={loading}

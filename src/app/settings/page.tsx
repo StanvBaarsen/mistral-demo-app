@@ -133,7 +133,7 @@ export default function SettingsPage() {
 							</td>
 							<td>
 								<button
-									className={"btn bg-accent top-[-14px] relative" + (recentlyUpdatedCustomInstruction ? ' !bg-green-500' : '')}
+									className={"btn bg-accent" + (recentlyUpdatedCustomInstruction ? ' !bg-green-500' : '')}
 									onClick={() => {
 										changeSetting('customInstruction', customInstruction);
 									}}

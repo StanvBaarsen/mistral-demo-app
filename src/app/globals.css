@@ -10,7 +10,7 @@ html {
 	--accent: #007ab3;
 	--accent-hover: #005c8b;
 	&.light {
-		--background: #f8f8f8;
+		--background: #fdfdfd;
 		--darker-background: #f0f4ff;
 		--darkest-background: #2a2d33;
 		--foreground: #222;
