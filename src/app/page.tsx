@@ -120,6 +120,7 @@ export default function MainPage() {
 			</div>
 			<div id="inputBox" className="shadow-md">
 				<textarea
+					id="userInput"
 					value={userInput}
 					onChange={(e) => setUserInput(e.target.value)}
 					placeholder="Ask anything!"
