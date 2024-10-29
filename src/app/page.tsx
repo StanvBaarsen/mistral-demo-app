@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/navigation';
 import './home.css';
+import { settings } from '@/utils/settings';
 
 type Message = {
 	content: string;
@@ -36,12 +37,14 @@ export default function MainPage() {
 			setUserInput('');
 			setLoading(true);
 
+			const customInstruction = settings.get('customInstruction') as string;
+			const temperature = settings.get('temperature') as number;
 			const res = await fetch('/api/mistral', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ messages: newMessages }),
+				body: JSON.stringify({ messages: newMessages, customInstruction, temperature }),
 			});
 
 			if (!res.body) {
@@ -92,7 +95,7 @@ export default function MainPage() {
 					Stan&#39;s Mistral Demo Web App
 				</h1>
 				<button
-					className="with-icon fab mr-3"
+					className="fab mr-3"
 					onClick={() => router.push('/settings')}
 				>
 					<i className="material-icons">settings</i>
@@ -127,7 +130,6 @@ export default function MainPage() {
 				<button
 					disabled={loading}
 					onClick={sendMessage}
-					className="with-icon"
 				>
 					<i className="material-icons">send</i>
 				</button>

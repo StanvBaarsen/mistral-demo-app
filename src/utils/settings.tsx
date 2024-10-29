@@ -1,11 +1,15 @@
 
 type Setting = {
 	preferredColorTheme: string;
+	temperature: number;
+	customInstruction: string;
 	[key: string]: string | boolean | number;
 };
 
 const defaults: Setting = {
 	preferredColorTheme: 'dark',
+	temperature: 0.3,
+	customInstruction: '',
 };
 
 export const settings = {

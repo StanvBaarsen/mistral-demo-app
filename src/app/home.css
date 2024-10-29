@@ -83,3 +83,9 @@ div.chatMessage {
 		}
 	}
 }
+
+@media screen and (max-width: 600px) {
+	div.chatMessage {
+		width: 80%;
+	}
+}
