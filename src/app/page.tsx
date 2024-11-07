@@ -1,5 +1,5 @@
 "use client";
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/navigation';
 import './home.css';
@@ -17,6 +17,7 @@ export default function MainPage() {
 	const [chatMessages, setChatMessages] = useState<Message[]>([]);
 	const [unfinishedMistralResponse, setUnfinishedMistralResponse] = useState('');
 	const [loading, setLoading] = useState(false);
+	const shouldCancelRef = useRef(false);
 
 	const focusInput = () => {
 		document.getElementById('userInput')?.focus();
@@ -24,6 +25,7 @@ export default function MainPage() {
 
 	const sendMessage = async () => {
 		if (!userInput) return;
+		shouldCancelRef.current = false;
 
 		const messagesDiv = document.getElementById('messages');
 		if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight
@@ -56,6 +58,10 @@ export default function MainPage() {
 			let message = '';
 
 			while (true) {
+				if (shouldCancelRef.current) {
+					reader.cancel();
+					break;
+				}
 				const { done, value } = await reader.read();
 				if (done) break;
 
@@ -64,12 +70,14 @@ export default function MainPage() {
 			}
 
 			setLoading(false);
-			setChatMessages((prev) => [...prev, {
-				content: message,
-				role: 'assistant',
-			}]);
-			setUnfinishedMistralResponse('');
-			if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight
+			if(!shouldCancelRef.current) {
+				setChatMessages((prev) => [...prev, {
+					content: message,
+					role: 'assistant',
+				}]);
+				setUnfinishedMistralResponse('');
+				if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight
+			}
 			focusInput();
 
 			reader.cancel();
@@ -84,6 +92,12 @@ export default function MainPage() {
 		}
 	};
 
+	const clearChat = () => {
+		setChatMessages([]);
+		setUnfinishedMistralResponse('');
+		shouldCancelRef.current = true; 
+	};
+
 	useEffect(() => {
 		focusInput();
 	}, []);
@@ -91,6 +105,12 @@ export default function MainPage() {
 	return (
 		<>
 			<header className="shadow-md">
+				<button
+					className="fab ml-3 red"
+					onClick={clearChat}
+				>
+					<i className="material-icons">delete</i>
+				</button>
 				<h1 className="text-2xl font-bold">
 					Stan&#39;s Mistral Demo Web App
 				</h1>

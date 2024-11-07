@@ -69,6 +69,13 @@ button {
 	transition: background 0.4s, color 0.4s;
 	color: white;
 
+	&.red {
+		background: #d32f2f;
+		&:hover {
+			background: #b71c1c;
+		}
+	}
+
 	&:hover {
 		background: var(--accent-hover);
 	}
